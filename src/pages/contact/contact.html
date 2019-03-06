@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -13,6 +13,44 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
-</ion-content>
+<ion-content >
+    <ion-card >
+      <ion-card-content>
+        <ion-card-title color="primary">
+          Location Information
+        </ion-card-title>
+        <address>
+        <ion-row>121, Clear Water Bay Road</ion-row>
+        <ion-row>Clear Water Bay, Kowloon</ion-row>
+         <ion-row> HONG KONG</ion-row>
+         <ion-row>
+          <ion-icon name="call"></ion-icon>
+          <div> : +852 1234 5678</div>
+        </ion-row>
+        <ion-row>
+          <ion-icon name="print"></ion-icon>
+          <div> : +852 8765 4321</div>
+        </ion-row>
+        <ion-row>
+          <ion-icon name="mail"></ion-icon>
+          <div> : confusion@food.net</div>
+        </ion-row>
+      </address>
+      </ion-card-content>
+      <ion-row>
+        <ion-col>
+          <button ion-button icon-left clear>
+            <ion-icon name="call"></ion-icon>
+            <div>CALL</div>
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button icon-left clear href="mailto:confusion@food.net">
+            <ion-icon name="mail"></ion-icon>
+            <div>EMAIL</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-content>
+  
