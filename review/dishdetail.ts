@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
-
-import { IonicPage, NavController, NavParams, ToastController, ActionSheetController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController , ActionSheetController, ModalController} from 'ionic-angular';
 import { Dish } from '../../shared/dish';
 import { Comment } from '../../shared/comment';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
@@ -29,34 +28,28 @@ export class DishdetailPage {
     @Inject('BaseURL') private BaseURL,
     private favoriteservice: FavoriteProvider,
     private toastCtrl: ToastController,
-    public actionSheetController: ActionSheetController,
-    public modalCtrl: ModalController) {
-    this.dish = navParams.get('dish');
-    this.favorite = favoriteservice.isFavorite(this.dish.id);
-    this.numcomments = this.dish.comments.length;
-    let total = 0;
-    this.dish.comments.forEach(comment => total += comment.rating );
-    this.avgstars = (total/this.numcomments).toFixed(2);
+    private actionCtrl: ActionSheetController,
+    private modalCtrl: ModalController) {
+      this.dish = navParams.get('dish');
+      this.favorite = favoriteservice.isFavorite(this.dish.id);
+      this.updateComments();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DishdetailPage');
   }
-  
+
   addToFavorites() {
     console.log('Adding to Favorites', this.dish.id);
     this.favorite = this.favoriteservice.addFavorite(this.dish.id);
-
     this.toastCtrl.create({
-      message: 'Dish ' + this.dish.id + ' added as favorite successfully',
+      message: 'Dish ' + this.dish.id + ' added as a favourite successfully',
       position: 'middle',
-      duration: 3000}).present();    
+      duration: 3000}).present();
   }
 
-
-
   openActions(){
-    let actionSheet = this.actionSheetController.create({
+    let actionSheet = this.actionCtrl.create({
       
       buttons: [{
         text: 'Add to Favorites',
@@ -97,4 +90,5 @@ export class DishdetailPage {
       this.dish.comments.forEach(comment => total += comment.rating );
       this.avgstars = (total/this.numcomments).toFixed(2);
   }
+
 }
