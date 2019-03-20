@@ -3,6 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { baseURL } from '../shared/baseurl';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -12,9 +14,11 @@ import { ContactPage } from '../pages/contact/contact';
 import { DishdetailPage } from '../pages/dishdetail/dishdetail'
 import { FavoritesPage } from '../pages/favorites/favorites'
 import { ReservationPage } from '../pages/reservation/reservation'
+import { LoginPage } from '../pages/login/login'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import { DishProvider } from '../providers/dish/dish';
 import { LeaderProvider } from '../providers/leader/leader';
 import { PromotionProvider } from '../providers/promotion/promotion';
@@ -33,12 +37,14 @@ import { CommentPage } from '../pages/comment/comment';
     DishdetailPage,
     FavoritesPage,
     ReservationPage,
-    CommentPage
+    CommentPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,11 +56,13 @@ import { CommentPage } from '../pages/comment/comment';
     DishdetailPage,
     FavoritesPage,
     ReservationPage,
-    CommentPage
+    CommentPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    LocalNotifications,
     {provide: ErrorHandler, useClass: IonicErrorHandler },
     DishProvider,
     LeaderProvider,

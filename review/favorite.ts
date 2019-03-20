@@ -1,12 +1,9 @@
+import { Http } from '@angular/http';
+import { Injectable } from '@angular/core';
 import { Dish } from '../../shared/dish';
 import { Observable } from 'rxjs/Observable';
 import { DishProvider } from '../dish/dish';
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
-import { LocalNotifications } from '@ionic-native/local-notifications';
-
-
 /*
   Generated class for the FavoriteProvider provider.
 
@@ -15,15 +12,13 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 */
 @Injectable()
 export class FavoriteProvider {
-
   favorites: Array<any>;
 
   constructor(public http: Http,
     private dishservice: DishProvider,
-    private storage: Storage ,
-    private localNotifications: LocalNotifications) {
+  private storage: Storage) {
     console.log('Hello FavoriteProvider Provider');
-    this.favorites = [];
+
 
     storage.get('favorites').then(favorites => {
       if (favorites) {
@@ -35,8 +30,6 @@ export class FavoriteProvider {
       this.favorites = [];
         console.log('user not defined');
     });
-
-    
   }
 
   addFavorite(id: number): boolean {
@@ -44,24 +37,20 @@ export class FavoriteProvider {
     {
       this.favorites.push(id);
       this.storage.set('favorites', this.favorites);
-      this.localNotifications.schedule({
-        id: id,
-        text: 'Dish ' + id + ' added as a favorite successfully'
-      });
-      
     }
-    
-      console.log('favorites', this.favorites);
+    console.log('favorites', this.favorites);
     return true;
-  }
-
-  getFavorites(): Observable<Dish[]> {
-    return this.dishservice.getDishes()
-      .map(dishes => dishes.filter(dish => this.favorites.some(el => el === dish.id)));
   }
 
   isFavorite(id: number): boolean {
         return this.favorites.some(el => el === id);
+  }
+
+  getFavorites(): Observable<Dish[]> {
+
+    return this.dishservice.getDishes()
+      .map(dishes => dishes.filter(dish => this.favorites.some(el => el === dish.id)
+    ));
   }
 
   deleteFavorite(id: number): Observable<Dish[]> {
@@ -77,4 +66,5 @@ export class FavoriteProvider {
       return Observable.throw('Deleting non-existant favorite' + id);
     }
   }
+
 }
